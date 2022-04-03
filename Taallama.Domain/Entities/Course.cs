@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using Taallama.Domain.Commons;
-using Taallama.Domain.Enums;
 
 namespace Taallama.Domain.Entities
 {
@@ -10,9 +9,10 @@ namespace Taallama.Domain.Entities
     {
         public Guid Id { get; set; }
         public string Title { get; set; }
-        
+        public string Description { get; set; }
+
         public Guid CourseOwnerId { get; set; }
-        
+
         [ForeignKey("CourseOwnerId")]
         public User CourseOwner { get; set; }
 

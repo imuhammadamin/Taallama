@@ -124,7 +124,7 @@ namespace Taallama.Service.Services
             
             video.Update();
 
-            var result = await unitOfWork.Users.UpdateAsync(video);
+            var result = await unitOfWork.Videos.UpdateAsync(video);
 
             await unitOfWork.SaveChangesAsync();
 
