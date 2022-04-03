@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Taallama.Domain.Commons;
@@ -22,15 +23,23 @@ namespace Taallama.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<BaseResponse<Video>>> Create([FromForm]CourseDTO courseDto)
+        public async Task<ActionResult<BaseResponse<Course>>> Create([FromForm]CourseDTO courseDto)
         {
             var result = await courseService.CreateAsync(courseDto);
 
             return StatusCode(result.Code ?? result.Error.Code.Value, result);
         }
 
+        [HttpPost("{id}")]
+        public async Task<ActionResult<BaseResponse<Course>>> AddVideoAsync(Guid id, IEnumerable<VideoDTO> videos)
+        {
+            var result = await courseService.AddVideosAsync(id, videos);
+
+            return StatusCode(result.Code ?? result.Error.Code.Value, result);
+        }
+
         [HttpGet("{id}")]
-        public async Task<ActionResult<BaseResponse<User>>> Get(Guid id)
+        public async Task<ActionResult<BaseResponse<Course>>> Get(Guid id)
         {
             var result = await courseService.GetAsync(id);
 
@@ -38,7 +47,7 @@ namespace Taallama.Api.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<ActionResult<BaseResponse<User>>> Update(Guid id, CourseDTO courseDto)
+        public async Task<ActionResult<BaseResponse<Course>>> Update(Guid id, CourseDTO courseDto)
         {
             var result = await courseService.UpdateAsync(id, courseDto);
 

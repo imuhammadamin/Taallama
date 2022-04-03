@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Taallama.Data.Contexts;
@@ -9,9 +10,10 @@ using Taallama.Data.Contexts;
 namespace Taallama.Data.Migrations
 {
     [DbContext(typeof(TaallamaDbContext))]
-    partial class TaallamaDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220403194416_Three")]
+    partial class Three
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

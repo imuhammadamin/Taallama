@@ -11,12 +11,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Taallama.Data\Taallama.Data.csproj" />
-    <ProjectReference Include="..\Taallama.Domain\Taallama.Domain.csproj" />
+	<FrameworkReference Include="Microsoft.AspNetCore.App" Version="2.2.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Mappers\" />
+    <ProjectReference Include="..\Taallama.Data\Taallama.Data.csproj" />
+    <ProjectReference Include="..\Taallama.Domain\Taallama.Domain.csproj" />
   </ItemGroup>
 
 </Project>
