@@ -6,7 +6,7 @@ namespace Taallama.Data.Repositories
 {
     public class UnitOfWork : IUnitOfWork
     {
-        private readonly TaallamaDbContext context;
+        private TaallamaDbContext context;
 
         public IUserRepository Users { get; private set; }
         public IVideoRepository Videos { get; private set; }
@@ -24,7 +24,8 @@ namespace Taallama.Data.Repositories
         public void Dispose() =>
             System.GC.SuppressFinalize(this);
 
-        public Task SaveChangesAsync() => context.SaveChangesAsync();
+        public async Task SaveChangesAsync() => 
+            await context.SaveChangesAsync();
             
     }
 }

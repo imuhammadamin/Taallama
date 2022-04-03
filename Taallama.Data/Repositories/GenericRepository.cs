@@ -11,7 +11,7 @@ namespace Taallama.Data.Repositories
 {
     public class GenericRepository<T> : IGenericRepository<T> where T : class
     {
-        protected readonly TaallamaDbContext dbContext;
+        protected TaallamaDbContext dbContext;
         protected DbSet<T> dbSet;
 
         public GenericRepository(TaallamaDbContext dbContext)
