@@ -80,6 +80,7 @@ namespace Taallama.Service.Services
                     Title = videoDto.Title,
                     CourseId = videoDto.CourseId
                 };
+                video.Create();
 
                 course.Videos.Add(video);
             }

@@ -1,5 +1,4 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using Taallama.Domain.Commons;
@@ -16,17 +15,13 @@ namespace Taallama.Domain.Entities
         public Guid Id { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
-
         public string Thumbnail { get; set; }
-
-        [JsonIgnore]
         public Guid CourseOwnerId { get; set; }
 
-        [ForeignKey("CourseOwnerId")]
+        [ForeignKey(nameof(CourseOwnerId))]
         public User CourseOwner { get; set; }
 
         public int? CountOfVideos => Videos?.Count;
-
-        public ICollection<Video> Videos { get; set; }
+        public virtual ICollection<Video> Videos { get; set; }
     }
 }
