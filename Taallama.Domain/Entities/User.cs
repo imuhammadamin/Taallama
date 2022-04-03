@@ -1,18 +1,25 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 using Taallama.Domain.Commons;
 using Taallama.Domain.Enums;
 
 namespace Taallama.Domain.Entities
 {
-    public class User : Login, IAuditable
+    public class User : BaseEntity, IAuditable
     {
         public Guid Id { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
+        
+        [MaxLength(64), MinLength(5)]
+        public string Username { get; set; }
+        
+        [MaxLength(32), MinLength(6)]
+        public string Password { get; set; }
         public DateTime BirthDate { get; set; }
-        public UserRole Role { get; set; } = 0;
-        public DateTime CreatedDate { get; set; }
-        public DateTime ModifiedDate { get; set; }
-        public State State { get; set; }
+        
+        [MaxLength(13), MinLength(12)]
+        public string PhoneNumber { get; set; }
+        public UserRole Role { get; set; }
     }
 }

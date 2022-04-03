@@ -2,7 +2,13 @@
 {
     public class Error
     {
-        public string Code { get; set; }
+        public short Code { get; set; }
         public string Message { get; set; }
+
+        public Error(short Code, string Message)
+        {
+            this.Code = Code;
+            this.Message = Message;
+        }
     }
 }

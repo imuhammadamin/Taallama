@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Taallama.Domain", "Taallama
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Taallama.Data", "Taallama.Data\Taallama.Data.csproj", "{89437A7E-D5FB-4FBC-B903-1FB0FA75DBB0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Taallama.Service", "Taallama.Service\Taallama.Service.csproj", "{7D1A3577-14B9-4EEA-81B4-46A26B4629A9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{89437A7E-D5FB-4FBC-B903-1FB0FA75DBB0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{89437A7E-D5FB-4FBC-B903-1FB0FA75DBB0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{89437A7E-D5FB-4FBC-B903-1FB0FA75DBB0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7D1A3577-14B9-4EEA-81B4-46A26B4629A9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7D1A3577-14B9-4EEA-81B4-46A26B4629A9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7D1A3577-14B9-4EEA-81B4-46A26B4629A9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7D1A3577-14B9-4EEA-81B4-46A26B4629A9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

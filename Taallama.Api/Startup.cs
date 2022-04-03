@@ -1,9 +1,12 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using Taallama.Data.Contexts;
+using Taallama.Data.IRepositories;
 
 namespace Taallama.Api
 {
@@ -19,12 +22,18 @@ namespace Taallama.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<TaallamaDbContext>(options =>
+            {
+                options.UseNpgsql(Configuration.GetConnectionString("TaallamaDb"));
+            });
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Taallama.Api", Version = "v1" });
             });
+
+            services.AddScoped<IUnitOfWork, IUnitOfWork>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

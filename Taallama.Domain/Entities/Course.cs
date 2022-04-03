@@ -6,7 +6,7 @@ using Taallama.Domain.Enums;
 
 namespace Taallama.Domain.Entities
 {
-    public class Course : IAuditable
+    public class Course : BaseEntity, IAuditable
     {
         public Guid Id { get; set; }
         public string Title { get; set; }
@@ -19,10 +19,5 @@ namespace Taallama.Domain.Entities
         public int CountOfVideos => Videos.Count;
 
         public ICollection<Video> Videos { get; set; }
-
-        public DateTime CreatedDate { get; set; }
-        public DateTime ModifiedDate { get; set; }
-        
-        public State State { get; set; }
     }
 }
