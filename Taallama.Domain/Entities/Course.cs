@@ -7,11 +7,6 @@ namespace Taallama.Domain.Entities
 {
     public class Course : BaseEntity, IAuditable
     {
-        public Course()
-        {
-            Videos = new List<Video>();
-        }
-
         public Guid Id { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }

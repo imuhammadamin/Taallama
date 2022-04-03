@@ -16,10 +16,12 @@ namespace Taallama.Domain.Entities
         
         [MaxLength(32), MinLength(6)]
         public string Password { get; set; }
+        
         public DateTime BirthDate { get; set; }
         
         [MaxLength(13), MinLength(12)]
         public string PhoneNumber { get; set; }
+        
         public UserRole Role { get; set; }
     }
 }

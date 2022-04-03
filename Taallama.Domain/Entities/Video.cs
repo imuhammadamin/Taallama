@@ -1,5 +1,4 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.ComponentModel.DataAnnotations.Schema;
 using Taallama.Domain.Commons;
 
@@ -13,8 +12,7 @@ namespace Taallama.Domain.Entities
         public Guid CourseId { get; set; }
         public string CourseName => Course?.Title;
 
-        [JsonIgnore]
-        [ForeignKey("CourseId")]
+        [ForeignKey(nameof(CourseId))]
         public Course Course { get; set; }
 
     }
