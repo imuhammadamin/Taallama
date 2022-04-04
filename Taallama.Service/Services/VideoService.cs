@@ -26,7 +26,7 @@ namespace Taallama.Service.Services
                 (
                 new MapperConfiguration
                     (
-                        cfg => cfg.CreateMap<User, UserDTO>().ReverseMap()
+                        cfg => cfg.CreateMap<Video, VideoDTO>().ReverseMap()
                     )
                 );
         }
@@ -44,9 +44,7 @@ namespace Taallama.Service.Services
                 return response;
             }
 
-            Video mappedVideo = new Video();
-            mappedVideo.Title = videoDto.Title;
-            mappedVideo.CourseId = videoDto.CourseId;
+            Video mappedVideo = mapper.Map<Video>(videoDto);
 
             mappedVideo.Create();
 

@@ -8,8 +8,8 @@ namespace Taallama.Data.Contexts
         public TaallamaDbContext(DbContextOptions<TaallamaDbContext> options) : base(options)
         { }
 
-        DbSet<User> Users { get; set; }
-        DbSet<Course> Courses { get; set; }
-        DbSet<Video> Videos { get; set; }
+        public DbSet<User> Users { get; set; }
+        public DbSet<Course> Courses { get; set; }
+        public DbSet<Video> Videos { get; set; }
     }
 }

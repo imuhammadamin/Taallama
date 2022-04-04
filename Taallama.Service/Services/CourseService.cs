@@ -52,6 +52,7 @@ namespace Taallama.Service.Services
             mappedCourse.Create();
 
             var result = await unitOfWork.Courses.CreateAsync(mappedCourse);
+            result.CourseOwner = await unitOfWork.Users.GetAsync(p => p.Id == result.CourseOwnerId);
 
             result.Thumbnail = "https://localhost:5001/Images/" + result.Thumbnail;
 
@@ -116,11 +117,16 @@ namespace Taallama.Service.Services
             return response;
         }
 
-        public async Task<BaseResponse<IQueryable<Course>>> GetAllAsync(PaginationParams @params)
+        public async Task<BaseResponse<IEnumerable<Course>>> GetAllAsync(PaginationParams @params)
         {
-            BaseResponse<IQueryable<Course>> response = new();
+            BaseResponse<IEnumerable<Course>> response = new();
 
-            IQueryable<Course> courses = (await unitOfWork.Courses.GetAllAsync()).Where(p => p.State != State.Deleted);
+            IEnumerable<Course> courses = new List<Course>();
+            foreach (var course in (await unitOfWork.Courses.GetAllAsync()).Where(p => p.State != State.Deleted))
+            {
+                course.CourseOwner = await unitOfWork.Users.GetAsync(p => p.Id == course.CourseOwnerId);
+                courses.Append(course);
+            }
 
             response.Data = courses.ToPagedList(@params).AsQueryable();
 
@@ -137,6 +143,8 @@ namespace Taallama.Service.Services
                 response.Error = new Error(404, "Course not found");
                 return response;
             }
+
+            course.CourseOwner = await unitOfWork.Users.GetAsync(p => p.Id == course.CourseOwnerId);
 
             response.Data = course;
 
