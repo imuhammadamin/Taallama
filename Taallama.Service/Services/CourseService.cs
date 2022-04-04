@@ -48,7 +48,7 @@ namespace Taallama.Service.Services
             mappedCourse.Description = courseDto.Description;
             mappedCourse.CourseOwnerId = courseDto.CourseOwnerId;
 
-            mappedCourse.Thumbnail = await SaveFileAsync(courseDto.Thumbnail.OpenReadStream(), courseDto.Thumbnail.FileName);
+            mappedCourse.Thumbnail = await FileExtensions.SaveFileAsync(courseDto.Thumbnail.OpenReadStream(), courseDto.Thumbnail.FileName, config, env);
 
             mappedCourse.Create();
 
@@ -149,23 +149,6 @@ namespace Taallama.Service.Services
             response.Data = course;
 
             return response;
-        }
-
-        public async Task<string> SaveFileAsync(Stream file, string fileName)
-        {
-            fileName = Guid.NewGuid().ToString("N") + '_' + fileName;
-
-            string storagePath = config.GetSection("Storage:ImageUrl").Value;
-
-            string filePath = Path.Combine(env.WebRootPath, $"{storagePath}/{fileName}");
-
-            FileStream mainFile = File.Create(filePath);
-
-            await file.CopyToAsync(mainFile);
-
-            mainFile.Close();
-
-            return fileName;
         }
 
         public async Task<BaseResponse<Course>> UpdateAsync(Guid id, CourseDTO courseDto)

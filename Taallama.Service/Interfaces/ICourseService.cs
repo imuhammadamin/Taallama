@@ -17,7 +17,5 @@ namespace Taallama.Service.Interfaces
         Task<BaseResponse<bool>> DeleteAsync(Guid id);
         Task<BaseResponse<IEnumerable<Course>>> Where(PaginationParams @params);
         Task<BaseResponse<Course>> AddVideosAsync(Guid id, IEnumerable<VideoDTO> videos);
-
-        Task<string> SaveFileAsync(Stream file, string fileName);
     }
 }
