@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
@@ -16,11 +18,15 @@ namespace Taallama.Service.Services
     public class UserService : IUserService
     {
         private readonly IUnitOfWork unitOfWork;
+        private readonly IWebHostEnvironment env;
+        private readonly IConfiguration config;
         private readonly IMapper mapper;
 
-        public UserService(IUnitOfWork unitOfWork)
+        public UserService(IUnitOfWork unitOfWork, IConfiguration config, IWebHostEnvironment env)
         {
             this.unitOfWork = unitOfWork;
+            this.config = config;
+            this.env = env;
 
             mapper = new Mapper
                 (
@@ -43,9 +49,11 @@ namespace Taallama.Service.Services
             }
 
             User mappedUser = mapper.Map<User>(userDto);
-
+            
             mappedUser.Username = login.Username;
             mappedUser.Password = login.Password;
+
+            mappedUser.Image = await FileExtensions.SaveFileAsync(userDto.ProfileImage.OpenReadStream(), userDto.ProfileImage.FileName, env, config);
 
             mappedUser.Create();
 

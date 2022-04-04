@@ -21,6 +21,8 @@ namespace Taallama.Domain.Entities
         
         [MaxLength(13), MinLength(12)]
         public string PhoneNumber { get; set; }
+
+        public string Image { get; set; }
         
         public UserRole Role { get; set; }
     }
