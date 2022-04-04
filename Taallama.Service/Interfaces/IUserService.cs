@@ -10,7 +10,7 @@ namespace Taallama.Service.Interfaces
 {
     public interface IUserService
     {
-        Task<BaseResponse<User>> CreateAsync(Login login, UserDTO userDto);
+        Task<BaseResponse<User>> CreateAsync(UserDTO userDto);
         Task<BaseResponse<User>> GetAsync(Guid id);
         Task<BaseResponse<User>> UpdateAsync(Guid id, UserDTO userDto);
         Task<BaseResponse<bool>> DeleteAsync(Guid id);

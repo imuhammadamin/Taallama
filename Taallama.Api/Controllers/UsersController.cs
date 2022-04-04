@@ -21,9 +21,9 @@ namespace Taallama.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<BaseResponse<User>>> Create([FromQuery]Login login, UserDTO userDto)
+        public async Task<ActionResult<BaseResponse<User>>> Create([FromForm]UserDTO userDto)
         {
-            var result = await userService.CreateAsync(login, userDto);
+            var result = await userService.CreateAsync(userDto);
             
             return StatusCode(result.Code ?? result.Error.Code.Value, result);
         }
