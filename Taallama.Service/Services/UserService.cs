@@ -37,7 +37,7 @@ namespace Taallama.Service.Services
                 );
         }
 
-        public async Task<BaseResponse<User>> CreateAsync(Login login, UserDTO userDto)
+        public async Task<BaseResponse<User>> CreateAsync(UserDTO userDto)
         {
             BaseResponse<User> response = new BaseResponse<User>();
 
@@ -49,9 +49,6 @@ namespace Taallama.Service.Services
             }
 
             User mappedUser = mapper.Map<User>(userDto);
-            
-            mappedUser.Username = login.Username;
-            mappedUser.Password = login.Password;
 
             mappedUser.Image = await FileExtensions.SaveFileAsync(userDto.ProfileImage.OpenReadStream(), userDto.ProfileImage.FileName, env, config);
 
