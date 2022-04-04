@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Hosting;
+﻿using EducationCenterUoW.Service.Helpers;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.IO;
@@ -8,21 +9,24 @@ namespace Taallama.Service.Extensions
 {
     public static class FileExtensions
     {
-        public static async Task<string> SaveFileAsync(Stream file, string fileName, IConfiguration config, IWebHostEnvironment env)
+        public static async Task<string> SaveFileAsync(this Stream file, string fileName, IWebHostEnvironment env, IConfiguration config)
         {
-            fileName = Guid.NewGuid().ToString("N") + '_' + fileName;
+            string hostUrl = HttpContextHelper.Context?.Request?.Scheme + "://" + HttpContextHelper.Context?.Request?.Host.Value;
+
+
+            fileName = Guid.NewGuid().ToString("N") + "_" + fileName;
 
             string storagePath = config.GetSection("Storage:ImageUrl").Value;
-
             string filePath = Path.Combine(env.WebRootPath, $"{storagePath}/{fileName}");
-
             FileStream mainFile = File.Create(filePath);
 
-            await file.CopyToAsync(mainFile);
+            string webUrl = $@"{hostUrl}/{storagePath}/{fileName}";
 
+
+            await file.CopyToAsync(mainFile);
             mainFile.Close();
 
-            return fileName;
+            return webUrl;
         }
     }
 }
