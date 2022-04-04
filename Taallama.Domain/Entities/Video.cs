@@ -11,7 +11,6 @@ namespace Taallama.Domain.Entities
         public string Title { get; set; }
 
         public string CourseName => Course?.Title;
-        public string Owner => $"{Course?.CourseOwner?.FirstName} {Course?.CourseOwner?.LastName}";
 
         public Guid CourseId { get; set; }
 

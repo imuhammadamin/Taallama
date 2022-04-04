@@ -17,7 +17,8 @@ namespace Taallama.Service.DTOs
         public DateTime BirthDate { get; set; }
 
         [Required]
-        public string Username { get; set; }
+        [MinLength(11)]
+        public string Email { get; set; }
 
         [Required]
         public string Password { get; set; }

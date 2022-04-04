@@ -28,13 +28,7 @@ namespace Taallama.Service.Services
             this.config = config;
             this.env = env;
 
-            mapper = new Mapper
-                (
-                new MapperConfiguration
-                    (
-                        cfg => cfg.CreateMap<User, UserDTO>().ReverseMap()
-                    )
-                );
+            mapper = new Mapper(new MapperConfiguration(cfg => cfg.CreateMap<User, UserDTO>().ReverseMap()));
         }
 
         public async Task<BaseResponse<User>> CreateAsync(UserDTO userDto)
@@ -42,15 +36,23 @@ namespace Taallama.Service.Services
             BaseResponse<User> response = new BaseResponse<User>();
 
             User existUser = await unitOfWork.Users.GetAsync(p => p.PhoneNumber == userDto.PhoneNumber);
+            
             if (existUser is not null)
             {
                 response.Error = new Error(409, "User already exists");
                 return response;
             }
+            else if (!userDto.Email.EndsWith("@gmail.com"))
+            {
+                response.Error = new Error(406, "Email must end with '@ gmail.com'");
+                
+                return response;
+            }
 
             User mappedUser = mapper.Map<User>(userDto);
 
-            mappedUser.Image = await FileExtensions.SaveFileAsync(userDto.ProfileImage.OpenReadStream(), userDto.ProfileImage.FileName, env, config);
+            mappedUser.Image = await FileExtensions
+                .SaveFileAsync(userDto.ProfileImage.OpenReadStream(), userDto.ProfileImage.FileName, env, config);
 
             mappedUser.Create();
 

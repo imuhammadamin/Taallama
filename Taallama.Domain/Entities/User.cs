@@ -11,8 +11,8 @@ namespace Taallama.Domain.Entities
         public string FirstName { get; set; }
         public string LastName { get; set; }
         
-        [MaxLength(64), MinLength(5)]
-        public string Username { get; set; }
+        [MaxLength(64), MinLength(11)]
+        public string Email { get; set; }
         
         [MaxLength(32), MinLength(6)]
         public string Password { get; set; }
