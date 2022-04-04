@@ -48,7 +48,7 @@ namespace Taallama.Service.Services
             mappedCourse.Description = courseDto.Description;
             mappedCourse.CourseOwnerId = courseDto.CourseOwnerId;
 
-            mappedCourse.Thumbnail = await FileExtensions.SaveFileAsync(courseDto.Thumbnail.OpenReadStream(), courseDto.Thumbnail.FileName, config, env);
+            mappedCourse.Thumbnail = await FileExtensions.SaveFileAsync(courseDto.Thumbnail.OpenReadStream(), courseDto.Thumbnail.FileName, env, config);
 
             mappedCourse.Create();
 
