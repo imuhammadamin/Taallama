@@ -63,9 +63,9 @@ namespace Taallama.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<BaseResponse<IQueryable<Course>>>> GetAll([FromQuery] PaginationParams @params)
+        public async Task<ActionResult<BaseResponse<IEnumerable<Course>>>> GetAll([FromQuery] PaginationParams @params)
         {
-            var result = await courseService.GetAllAsync(@params);
+            var result = await courseService.Where(@params);
 
             return StatusCode(result.Code ?? result.Error.Code.Value, result);
         }

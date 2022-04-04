@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
@@ -117,18 +118,15 @@ namespace Taallama.Service.Services
             return response;
         }
 
-        public async Task<BaseResponse<IEnumerable<Course>>> GetAllAsync(PaginationParams @params)
+        public async Task<BaseResponse<IEnumerable<Course>>> Where(PaginationParams @params)
         {
             BaseResponse<IEnumerable<Course>> response = new();
 
-            IEnumerable<Course> courses = new List<Course>();
-            foreach (var course in (await unitOfWork.Courses.GetAllAsync()).Where(p => p.State != State.Deleted))
-            {
-                course.CourseOwner = await unitOfWork.Users.GetAsync(p => p.Id == course.CourseOwnerId);
-                courses.Append(course);
-            }
+            IEnumerable<Course> courses = (await unitOfWork.Courses.Where(p => p.State != State.Deleted))
+                .Include(o => o.CourseOwner)
+                .Include(p => p.Videos);
 
-            response.Data = courses.ToPagedList(@params).AsQueryable();
+            response.Data = courses.ToPagedList(@params);
 
             return response;
         }
@@ -145,6 +143,8 @@ namespace Taallama.Service.Services
             }
 
             course.CourseOwner = await unitOfWork.Users.GetAsync(p => p.Id == course.CourseOwnerId);
+
+            course.Videos = (await unitOfWork.Videos.Where(p => p.CourseId == course.Id)).ToList();
 
             response.Data = course;
 
@@ -181,7 +181,7 @@ namespace Taallama.Service.Services
 
             course.Title = courseDto.Title;
             course.Description = courseDto.Description;
-            
+
 
             course.Update();
 

@@ -11,6 +11,6 @@ namespace Taallama.Data.IRepositories
         Task<T> GetAsync(Expression<Func<T, bool>> expression);
         Task<T> UpdateAsync(T entity);
         Task<bool> DeleteAsync(Expression<Func<T, bool>> expression);
-        Task<IQueryable<T>> GetAllAsync(Expression<Func<T, bool>> expression = null);
+        Task<IQueryable<T>> Where(Expression<Func<T, bool>> expression = null);
     }
 }

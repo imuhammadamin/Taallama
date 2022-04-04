@@ -57,7 +57,7 @@ namespace Taallama.Api.Controllers
         [HttpGet]
         public async Task<ActionResult<BaseResponse<IQueryable<Video>>>> GetAll([FromQuery] PaginationParams @params)
         {
-            var result = await videoService.GetAllAsync(@params);
+            var result = await videoService.Where(@params);
 
             return StatusCode(result.Code ?? result.Error.Code.Value, result);
         }

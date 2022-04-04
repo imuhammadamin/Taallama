@@ -14,6 +14,6 @@ namespace Taallama.Service.Interfaces
         Task<BaseResponse<Video>> GetAsync(Guid id);
         Task<BaseResponse<Video>> UpdateAsync(Guid id, VideoDTO videoDTO);
         Task<BaseResponse<bool>> DeleteAsync(Guid id);
-        Task<BaseResponse<IQueryable<Video>>> GetAllAsync(PaginationParams @params);
+        Task<BaseResponse<IQueryable<Video>>> Where(PaginationParams @params);
     }
 }

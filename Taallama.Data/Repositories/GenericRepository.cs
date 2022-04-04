@@ -35,7 +35,7 @@ namespace Taallama.Data.Repositories
             return true;
         }
 
-        public async Task<IQueryable<T>> GetAllAsync(Expression<Func<T, bool>> expression = null) =>
+        public async Task<IQueryable<T>> Where(Expression<Func<T, bool>> expression = null) =>
             expression is null ? dbSet : dbSet.Where(expression);
 
         public Task<T> GetAsync(Expression<Func<T, bool>> expression) =>

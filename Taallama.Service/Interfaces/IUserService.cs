@@ -14,6 +14,6 @@ namespace Taallama.Service.Interfaces
         Task<BaseResponse<User>> GetAsync(Guid id);
         Task<BaseResponse<User>> UpdateAsync(Guid id, UserDTO userDto);
         Task<BaseResponse<bool>> DeleteAsync(Guid id);
-        Task<BaseResponse<IQueryable<User>>> GetAllAsync(PaginationParams @params);
+        Task<BaseResponse<IQueryable<User>>> Where(PaginationParams @params);
     }
 }

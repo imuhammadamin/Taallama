@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
@@ -49,6 +50,8 @@ namespace Taallama.Service.Services
             mappedVideo.Create();
 
             Video result = await unitOfWork.Videos.CreateAsync(mappedVideo);
+            
+            result.Course = await unitOfWork.Courses.GetAsync(p => p.Id == result.CourseId);
 
             await unitOfWork.SaveChangesAsync();
 
@@ -79,11 +82,11 @@ namespace Taallama.Service.Services
             return response;
         }
 
-        public async Task<BaseResponse<IQueryable<Video>>> GetAllAsync(PaginationParams @params)
+        public async Task<BaseResponse<IQueryable<Video>>> Where(PaginationParams @params)
         {
             BaseResponse<IQueryable<Video>> response = new();
 
-            IQueryable<Video> videos = (await unitOfWork.Videos.GetAllAsync()).Where(p => p.State != State.Deleted);
+            IQueryable<Video> videos = (await unitOfWork.Videos.Where()).Where(p => p.State != State.Deleted).Include(p => p.Course);
 
             response.Data = videos.ToPagedList(@params).AsQueryable();
 
@@ -94,12 +97,14 @@ namespace Taallama.Service.Services
         {
             var response = new BaseResponse<Video>();
 
-            var video = await unitOfWork.Videos.GetAsync(p => p.Id == id);
+            var video = await unitOfWork.Videos.GetAsync(p => p.Id == id && p.State != State.Deleted);
             if (video is null)
             {
-                response.Error = new Error(404, "User not found");
+                response.Error = new Error(404, "Video not found");
                 return response;
             }
+
+            video.Course = await unitOfWork.Courses.GetAsync(p => p.Id == video.CourseId);
 
             response.Data = video;
 

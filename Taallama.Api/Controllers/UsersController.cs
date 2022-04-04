@@ -21,7 +21,7 @@ namespace Taallama.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<BaseResponse<User>>> Create([FromForm] Login login, UserDTO userDto)
+        public async Task<ActionResult<BaseResponse<User>>> Create([FromRoute]Login login, UserDTO userDto)
         {
             var result = await userService.CreateAsync(login, userDto);
             
@@ -55,7 +55,7 @@ namespace Taallama.Api.Controllers
         [HttpGet]
         public async Task<ActionResult<BaseResponse<IQueryable<User>>>> GetAll([FromQuery] PaginationParams @params)
         {
-            var result = await userService.GetAllAsync(@params);
+            var result = await userService.Where(@params);
 
             return StatusCode(result.Code ?? result.Error.Code.Value, result);
         }

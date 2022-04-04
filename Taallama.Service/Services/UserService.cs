@@ -38,7 +38,6 @@ namespace Taallama.Service.Services
             User existUser = await unitOfWork.Users.GetAsync(p => p.PhoneNumber == userDto.PhoneNumber);
             if (existUser is not null)
             {
-                // Error code is User already exist
                 response.Error = new Error(409, "User already exists");
                 return response;
             }
@@ -81,11 +80,11 @@ namespace Taallama.Service.Services
             return response;
         }
 
-        public async Task<BaseResponse<IQueryable<User>>> GetAllAsync(PaginationParams @params)
+        public async Task<BaseResponse<IQueryable<User>>> Where(PaginationParams @params)
         {
             BaseResponse<IQueryable<User>> response = new();
 
-            IQueryable<User> users = (await unitOfWork.Users.GetAllAsync()).Where(p => p.State != State.Deleted);
+            IQueryable<User> users = (await unitOfWork.Users.Where()).Where(p => p.State != State.Deleted);
 
             response.Data = users.ToPagedList(@params).AsQueryable();
 
@@ -123,6 +122,7 @@ namespace Taallama.Service.Services
             user.LastName = userDto.LastName;
             user.PhoneNumber = userDto.PhoneNumber;
             user.BirthDate = userDto.BirthDate;
+            
             user.Update();
 
             var result = await unitOfWork.Users.UpdateAsync(user);
