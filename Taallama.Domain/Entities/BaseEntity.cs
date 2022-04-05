@@ -8,7 +8,7 @@ namespace Taallama.Domain.Entities
         public DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set; }
         public State State { get; set; }
-        
+
         public void Update()
         {
             UpdatedAt = DateTime.Now;

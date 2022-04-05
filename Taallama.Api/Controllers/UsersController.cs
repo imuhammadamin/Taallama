@@ -21,10 +21,10 @@ namespace Taallama.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<BaseResponse<User>>> Create([FromForm]UserDTO userDto)
+        public async Task<ActionResult<BaseResponse<User>>> Create([FromForm] UserDTO userDto)
         {
             var result = await userService.CreateAsync(userDto);
-            
+
             return StatusCode(result.Code ?? result.Error.Code.Value, result);
         }
 
@@ -37,7 +37,7 @@ namespace Taallama.Api.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<ActionResult<BaseResponse<User>>> Update([FromRoute]Guid id, UserDTO userDto)
+        public async Task<ActionResult<BaseResponse<User>>> Update([FromRoute] Guid id, UserDTO userDto)
         {
             var result = await userService.UpdateAsync(id, userDto);
 

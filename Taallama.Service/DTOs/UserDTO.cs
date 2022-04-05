@@ -26,7 +26,7 @@ namespace Taallama.Service.DTOs
         [Required]
         [MaxLength(13), MinLength(12)]
         public string PhoneNumber { get; set; }
-        
+
         public IFormFile ProfileImage { get; set; }
 
         [Required]

@@ -38,7 +38,7 @@ namespace Taallama.Service.Services
 
             Video video = await unitOfWork.Videos.GetAsync
                 (p => p.Title == videoDto.Title && p.CourseId == videoDto.CourseId && p.State != State.Deleted);
-            
+
             if (video is not null)
             {
                 response.Error = new Error(409, "Video already exists");
@@ -50,7 +50,7 @@ namespace Taallama.Service.Services
             mappedVideo.Create();
 
             Video result = await unitOfWork.Videos.CreateAsync(mappedVideo);
-            
+
             result.Course = await unitOfWork.Courses.GetAsync(p => p.Id == result.CourseId);
 
             await unitOfWork.SaveChangesAsync();
@@ -124,7 +124,7 @@ namespace Taallama.Service.Services
 
             video.Title = videoDto.Title;
             video.CourseId = videoDto.CourseId;
-            
+
             video.Update();
 
             var result = await unitOfWork.Videos.UpdateAsync(video);

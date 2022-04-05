@@ -15,7 +15,7 @@ namespace Taallama.Data.Repositories
         public UnitOfWork(TaallamaDbContext context)
         {
             this.context = context;
-            
+
             Users = new UserRepository(context);
             Videos = new VideoRepository(context);
             Courses = new CourseRepository(context);
@@ -24,8 +24,8 @@ namespace Taallama.Data.Repositories
         public void Dispose() =>
             System.GC.SuppressFinalize(this);
 
-        public async Task SaveChangesAsync() => 
+        public async Task SaveChangesAsync() =>
             await context.SaveChangesAsync();
-            
+
     }
 }

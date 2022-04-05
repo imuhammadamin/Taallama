@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Taallama.Domain.Commons;
 using Taallama.Domain.Configurations;
@@ -23,7 +22,7 @@ namespace Taallama.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<BaseResponse<Course>>> Create([FromForm]CourseDTO courseDto)
+        public async Task<ActionResult<BaseResponse<Course>>> Create([FromForm] CourseDTO courseDto)
         {
             var result = await courseService.CreateAsync(courseDto);
 

@@ -36,7 +36,7 @@ namespace Taallama.Service.Services
             BaseResponse<User> response = new BaseResponse<User>();
 
             User existUser = await unitOfWork.Users.GetAsync(p => p.PhoneNumber == userDto.PhoneNumber);
-            
+
             if (existUser is not null)
             {
                 response.Error = new Error(409, "User already exists");
@@ -45,7 +45,7 @@ namespace Taallama.Service.Services
             else if (!userDto.Email.EndsWith("@gmail.com"))
             {
                 response.Error = new Error(406, "Email must end with '@ gmail.com'");
-                
+
                 return response;
             }
 
@@ -130,7 +130,7 @@ namespace Taallama.Service.Services
             user.LastName = userDto.LastName;
             user.PhoneNumber = userDto.PhoneNumber;
             user.BirthDate = userDto.BirthDate;
-            
+
             if (userDto.ProfileImage is not null)
                 user.Image = await FileExtensions
                     .SaveFileAsync(userDto.ProfileImage.OpenReadStream(), userDto.ProfileImage.FileName, env, config);

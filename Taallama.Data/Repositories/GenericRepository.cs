@@ -26,7 +26,7 @@ namespace Taallama.Data.Repositories
         public async Task<bool> DeleteAsync(Expression<Func<T, bool>> expression)
         {
             T entity = await dbSet.FirstOrDefaultAsync(expression);
-            
+
             if (entity == null)
                 return false;
 

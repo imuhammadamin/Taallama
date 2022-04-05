@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
@@ -16,7 +15,7 @@ namespace Taallama.Api.Controllers
     public class VideosController : ControllerBase
     {
         private readonly IVideoService videoService;
-        
+
         public VideosController(IVideoService videoService)
         {
             this.videoService = videoService;
@@ -53,7 +52,7 @@ namespace Taallama.Api.Controllers
 
             return StatusCode(result.Code ?? result.Error.Code.Value, result);
         }
-        
+
         [HttpGet]
         public async Task<ActionResult<BaseResponse<IQueryable<Video>>>> GetAll([FromQuery] PaginationParams @params)
         {

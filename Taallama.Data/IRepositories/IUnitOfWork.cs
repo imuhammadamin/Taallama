@@ -7,7 +7,7 @@ namespace Taallama.Data.IRepositories
         IUserRepository Users { get; }
         IVideoRepository Videos { get; }
         ICourseRepository Courses { get; }
-        
+
         Task SaveChangesAsync();
     }
 }
