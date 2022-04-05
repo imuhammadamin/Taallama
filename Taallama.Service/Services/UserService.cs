@@ -51,8 +51,9 @@ namespace Taallama.Service.Services
 
             User mappedUser = mapper.Map<User>(userDto);
 
-            mappedUser.Image = await FileExtensions
-                .SaveFileAsync(userDto.ProfileImage.OpenReadStream(), userDto.ProfileImage.FileName, env, config);
+            if (userDto.ProfileImage is not null)
+                mappedUser.Image = await FileExtensions
+                    .SaveFileAsync(userDto.ProfileImage.OpenReadStream(), userDto.ProfileImage.FileName, env, config);
 
             mappedUser.Create();
 
