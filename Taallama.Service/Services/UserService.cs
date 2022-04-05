@@ -130,6 +130,10 @@ namespace Taallama.Service.Services
             user.PhoneNumber = userDto.PhoneNumber;
             user.BirthDate = userDto.BirthDate;
             
+            if (userDto.ProfileImage is not null)
+                user.Image = await FileExtensions
+                    .SaveFileAsync(userDto.ProfileImage.OpenReadStream(), userDto.ProfileImage.FileName, env, config);
+
             user.Update();
 
             var result = await unitOfWork.Users.UpdateAsync(user);

@@ -164,6 +164,8 @@ namespace Taallama.Service.Services
 
             course.Title = courseDto.Title;
             course.Description = courseDto.Description;
+            course.Thumbnail = await FileExtensions
+                .SaveFileAsync(courseDto.Thumbnail.OpenReadStream(), courseDto.Thumbnail.FileName, env, config);
 
 
             course.Update();
